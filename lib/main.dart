@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const Icon(Icons.directions_bike),
             ],
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: Builder(builder: (context) {
             return FloatingActionButton(
               onPressed: () {
