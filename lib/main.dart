@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,24 +44,33 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             title: Text(widget.title),
+            actions: [
+              Builder(builder: (context) {
+                return IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).openEndDrawer();
+                    },
+                    icon: const Icon(Icons.person));
+              })
+            ],
           ),
-          drawer: LeftMenu(),
-          endDrawer: RightMenu(),
-          bottomNavigationBar: BottomNavBar(),
+          drawer: const LeftMenu(),
+          endDrawer: const RightMenu(),
+          bottomNavigationBar: const BottomNavBar(),
           body: TabBarView(
             children: [
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  children: const <Widget>[
                     Text(
                       'simple app',
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.directions_transit),
-              Icon(Icons.directions_bike),
+              const Icon(Icons.directions_transit),
+              const Icon(Icons.directions_bike),
             ],
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
@@ -68,12 +79,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 showBottomSheetMenu();
               },
-              child: Icon(Icons.mediation),
+              child: const Icon(Icons.mediation),
             );
           }),
         ));
   }
 
+  void showRightMenu() {}
   void showBottomSheetMenu() {
     showModalBottomSheet(
         context: context,
@@ -107,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   TextButton(
-                    child: Text('Оплатить'),
+                    child: const Text('Оплатить'),
                     onPressed: () {},
                   ),
                 ],
@@ -123,28 +135,48 @@ class LeftMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
+    return SafeArea(
+      child: Drawer(
+        child: Column(
+          children: <Widget>[
+            const DrawerHeader(
+                child: CircleAvatar(
+              radius: 60,
+              backgroundImage: AssetImage('assets/images/cam2.jpg'),
+            )),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
+              trailing: const Icon(Icons.keyboard_arrow_right),
+              onTap: () {},
             ),
-            child: Text('Drawer Header'),
-          ),
-          ListTile(
-            title: const Text('Item 1'),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text('Item 2'),
-            onTap: () {},
-          ),
-        ],
+            ListTile(
+              leading: const Icon(Icons.image),
+              title: const Text('Images'),
+              trailing: const Icon(Icons.keyboard_arrow_right),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.file_copy),
+              title: const Text('Files'),
+              trailing: const Icon(Icons.keyboard_arrow_right),
+              onTap: () {},
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextButton(onPressed: () {}, child: const Text('Выход')),
+                  TextButton(
+                      onPressed: () {}, child: const Text('Регистрация')),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
-    ;
   }
 }
 
@@ -153,7 +185,22 @@ class RightMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SafeArea(
+      child: Drawer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage('assets/images/cam2.jpg')),
+            SizedBox(
+              height: 10,
+            ),
+            Text(' Иван Иванов'),
+          ],
+        ),
+      ),
+    );
   }
 }
 
